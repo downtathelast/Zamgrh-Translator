@@ -13,5 +13,6 @@ function runTranslate() {
 }
 
 function playGroan() {
+  audio.init();   // 🔥 ensures AudioContext unlock
   audio.groan();
 }
