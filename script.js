@@ -1,7 +1,17 @@
 const translator = new ZamgrhTranslator();
+const audio = new ZombieAudio();
 
-function translateText() {
+translator.loadLexicon();
+
+function runTranslate() {
+  translator.setMode(document.getElementById("mode").value);
+
   const input = document.getElementById("input").value;
   const output = translator.translate(input);
+
   document.getElementById("output").innerText = output;
+}
+
+function playGroan() {
+  audio.groan();
 }
