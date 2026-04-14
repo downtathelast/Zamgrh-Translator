@@ -1,30 +1,26 @@
 class ZamgrhTranslator {
   constructor() {
-    this.lexicon = {
-      i: "mah zambah",
-      me: "mah zambah",
-      we: "mah zambah brazzahz",
-      you: "gaa",
-      eat: "barg",
-      brain: "bra!nz",
-      brains: "bra!nz",
-      human: "harman",
-      humans: "harmanz",
-      zombie: "zambah",
-      help: "hab",
-      want: "habganna",
-      are: "am",
-      is: "am",
-      here: "haarh",
-      attack: "hammarh",
-      love: "amarh",
-      not: "nah",
-      and: "an",
-      to: "ahn"
-    };
+    this.lexicon = {};
+    this.mode = "zombie"; // "zombie" | "survivor"
+  }
+
+  async loadLexicon(path = "lexicon.json") {
+    const res = await fetch(path);
+    this.lexicon = await res.json();
+  }
+
+  setMode(mode) {
+    this.mode = mode;
   }
 
   translate(text) {
+    return this.mode === "zombie"
+      ? this.toZamgrh(text)
+      : this.toSurvivor(text);
+  }
+
+  // 🧟 English → Zamgrh
+  toZamgrh(text) {
     return text
       .toLowerCase()
       .split(/(\s+|[.,!?])/g)
@@ -40,7 +36,6 @@ class ZamgrhTranslator {
 
     let z = this.lexicon[word] || this.zombify(word);
     z = this.applyRules(z);
-
     return z + " ";
   }
 
@@ -63,5 +58,22 @@ class ZamgrhTranslator {
     w = w.replace(/!/g, "!!");
 
     return w;
+  }
+
+  // 🧍 Zombie → Survivor (reverse approximation)
+  toSurvivor(text) {
+    let out = text;
+
+    for (const [k, v] of Object.entries(this.lexicon)) {
+      const regex = new RegExp(v, "gi");
+      out = out.replace(regex, k);
+    }
+
+    return out
+      .replace(/barg/g, "eat")
+      .replace(/bra!nz/g, "brains")
+      .replace(/harman/g, "human")
+      .replace(/harmanz/g, "humans")
+      .replace(/zambah/g, "zombie");
   }
 }
