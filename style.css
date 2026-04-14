@@ -1,39 +1,48 @@
 body {
-  background: #0b0f0c;
-  color: #b6ffb6;
+  background: black;
+  color: #33ff66;
   font-family: monospace;
-  display: flex;
-  justify-content: center;
-  padding-top: 50px;
+  text-align: center;
 }
 
-.container {
-  width: 500px;
-  text-align: center;
+.crt {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  border: 2px solid #33ff66;
+  box-shadow: 0 0 20px #33ff66;
 }
 
 textarea {
   width: 100%;
   height: 120px;
-  margin: 10px 0;
-  background: #111;
-  color: #b6ffb6;
-  border: 1px solid #2e6b2e;
-  padding: 10px;
+  background: #000;
+  color: #33ff66;
+  border: 1px solid #33ff66;
 }
 
-button {
-  background: #2e6b2e;
-  color: white;
-  border: none;
+button, select {
+  margin: 5px;
   padding: 10px;
+  background: black;
+  color: #33ff66;
+  border: 1px solid #33ff66;
   cursor: pointer;
 }
 
-.output {
+#output {
   margin-top: 20px;
   padding: 10px;
-  background: #111;
-  border: 1px dashed #2e6b2e;
-  min-height: 50px;
+  border-top: 1px dashed #33ff66;
+}
+
+/* subtle glitch */
+h1 {
+  text-shadow: 2px 0 red, -2px 0 blue;
+  animation: flicker 2s infinite;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
 }
