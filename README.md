@@ -29,8 +29,7 @@ Glitch text effects
 Dark “survival interface” aesthetic
 WWDead-inspired visual tone
 
-🚀 How to Run Locally
-
+How to Run Locally
 Just open index.html in a browser:
 
 git clone https://github.com/yourusername/zamgrh-translator.git
@@ -87,9 +86,7 @@ Works fully on GitHub Pages
 Audio requires a user click to activate
 
 Credits
-
 Built as part of a WWDead-inspired linguistic system exploring:
-
 kiZombie phonology (sourced from:https://wiki.urbandead.com/index.php/Guides:kiZombie-English_Dictionary)
 Malton survival communication systems
 undead semantic drift modeling
