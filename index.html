@@ -1,24 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8" />
-  <title>Zamgrh Translator 🧟</title>
+  <title>Zamgrh Translator</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
+  <div class="crt">
 
-  <div class="container">
-    <h1>🧟 Zamgrh Translator</h1>
+    <h1>🧟 ZAMGRH TERMINAL</h1>
 
-    <textarea id="input" placeholder="Enter survivor language..."></textarea>
+    <select id="mode">
+      <option value="zombie">Zombie Mode</option>
+      <option value="survivor">Survivor Mode</option>
+    </select>
 
-    <button onclick="translateText()">Translate → Zamgrh</button>
+    <textarea id="input" placeholder="Enter signal..."></textarea>
 
-    <div class="output" id="output"></div>
+    <button onclick="runTranslate()">TRANSLATE</button>
+    <button onclick="playGroan()">☠ GROAN</button>
+
+    <div id="output"></div>
+
   </div>
 
   <script src="translator.js"></script>
+  <script src="audio.js"></script>
   <script src="script.js"></script>
-
 </body>
 </html>
