@@ -63,23 +63,19 @@
   <script src="translator.js"></script>
 
   <!-- meSpeak engine -->
-  <script src="src/audio/mespeak.js"></script>
+  <script src="src/mespeak.js"></script>
 
-<script>
-  meSpeak.loadConfig(
-    "src/audio/mespeak__standard_config.json"
-  );
-
-  meSpeak.loadVoice(
-    "src/audio/en-rp.json",
-    function () {
-      console.log("Zombie voice loaded.");
-    }
-  );
-</script>
+  <script>
+    meSpeak.loadVoice(
+      "src/audio/en-rp.json",
+      function () {
+        console.log("Zombie voice loaded.");
+      }
+    );
+  </script>
 
   <!-- zombie audio -->
-  <script src="src/audio/zombieAudio.js"></script>
+  <script src="src/zombieAudio.js"></script>
 
   <!-- app logic -->
   <script src="script.js"></script>
