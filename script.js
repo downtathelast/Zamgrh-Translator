@@ -4,6 +4,7 @@ const audio = new ZombieAudio();
 translator.loadLexicon();
 
 function runTranslate() {
+
   translator.setMode(
     document.getElementById("mode").value
   );
@@ -17,10 +18,13 @@ function runTranslate() {
   document.getElementById("output").innerText =
     output;
 
-  // undead voice
+  // creepy speech
   audio.speak(output);
+
 }
 
 function playGroan() {
+
   audio.groan();
+
 }
