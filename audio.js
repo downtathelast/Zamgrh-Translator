@@ -2,36 +2,28 @@ class ZombieAudio {
   constructor() {
     this.ctx = null;
     this.enabled = false;
-
-    // fake phoneme map
-    this.phonemes = {
-      a: 140,
-      e: 220,
-      i: 260,
-      o: 120,
-      u: 100,
-
-      r: 80,
-      g: 70,
-      h: 60,
-      z: 50,
-      m: 90,
-      b: 75,
-      n: 95
-    };
   }
 
   // browser audio unlock
   init() {
     if (this.ctx) return;
 
-    this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+    this.ctx = new (
+      window.AudioContext ||
+      window.webkitAudioContext
+    )();
+
     this.enabled = true;
   }
 
-  // play a single zombie phoneme
-  playPhoneme(char, startTime) {
-    const freq = this.phonemes[char.toLowerCase()] || 110;
+  // zombie speech/growl system
+  speak(text) {
+    if (!this.ctx) this.init();
+    if (!this.enabled) return;
+
+    const clean = text.toLowerCase();
+
+    const now = this.ctx.currentTime;
 
     const osc = this.ctx.createOscillator();
     const gain = this.ctx.createGain();
@@ -39,71 +31,100 @@ class ZombieAudio {
 
     osc.type = "sawtooth";
 
-    // crunchy wobble
-    osc.frequency.setValueAtTime(freq, startTime);
-    osc.frequency.exponentialRampToValueAtTime(
-      Math.max(40, freq * 0.7),
-      startTime + 0.08
+    // base zombie tone
+    let baseFreq = 85;
+
+    // text influences growl
+    for (const char of clean) {
+      switch (char) {
+        case "a":
+          baseFreq += 3;
+          break;
+
+        case "z":
+          baseFreq -= 2;
+          break;
+
+        case "r":
+          baseFreq -= 4;
+          break;
+
+        case "g":
+          baseFreq -= 3;
+          break;
+
+        case "u":
+          baseFreq -= 5;
+          break;
+      }
+    }
+
+    // clamp range
+    baseFreq = Math.max(
+      45,
+      Math.min(baseFreq, 140)
     );
 
-    // muffled zombie throat
-    filter.type = "lowpass";
-    filter.frequency.setValueAtTime(500, startTime);
+    osc.frequency.setValueAtTime(
+      baseFreq,
+      now
+    );
 
-    gain.gain.setValueAtTime(0.0001, startTime);
-    gain.gain.linearRampToValueAtTime(0.12, startTime + 0.01);
-    gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.1);
+    // descending undead pitch
+    osc.frequency.exponentialRampToValueAtTime(
+      baseFreq * 0.55,
+      now + 1.2
+    );
+
+    // muffled speaker sound
+    filter.type = "lowpass";
+    filter.frequency.setValueAtTime(
+      450,
+      now
+    );
+
+    gain.gain.setValueAtTime(
+      0.001,
+      now
+    );
+
+    gain.gain.linearRampToValueAtTime(
+      0.25,
+      now + 0.05
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+      0.001,
+      now + 1.2
+    );
 
     osc.connect(filter);
     filter.connect(gain);
     gain.connect(this.ctx.destination);
 
-    osc.start(startTime);
-    osc.stop(startTime + 0.1);
+    osc.start(now);
+    osc.stop(now + 1.2);
   }
 
-  // speak zombie text
-  speak(text) {
-    if (!this.ctx) this.init();
-    if (!this.enabled) return;
-
-    const clean = text
-      .toLowerCase()
-      .replace(/[^a-z\s]/g, "");
-
-    let time = this.ctx.currentTime;
-
-    for (const char of clean) {
-      if (char === " ") {
-        time += 0.05;
-        continue;
-      }
-
-      this.playPhoneme(char, time);
-
-      // random stagger for undead effect
-      time += 0.06 + Math.random() * 0.03;
-    }
-  }
-
-  // classic random groan
+  // random classic zombie sounds
   groan() {
     const sounds = [
-      "grrrrhh",
-      "braaaains",
-      "unnghh",
-      "rahhh",
-      "ggrraahh"
+      "grrrh",
+      "unnggh",
+      "raaaah",
+      "braaains",
+      "ggrrraah"
     ];
 
-    const random = sounds[
-      Math.floor(Math.random() * sounds.length)
-    ];
+    const random =
+      sounds[
+        Math.floor(Math.random() * sounds.length)
+      ];
 
     this.speak(random);
   }
 
-  // optional ambience
+  // optional ambient hum
   ambient() {
     if (!this.ctx) this.init();
     if (!this.enabled) return;
@@ -112,9 +133,16 @@ class ZombieAudio {
     const gain = this.ctx.createGain();
 
     osc.type = "triangle";
-    osc.frequency.setValueAtTime(38, this.ctx.currentTime);
 
-    gain.gain.setValueAtTime(0.02, this.ctx.currentTime);
+    osc.frequency.setValueAtTime(
+      38,
+      this.ctx.currentTime
+    );
+
+    gain.gain.setValueAtTime(
+      0.02,
+      this.ctx.currentTime
+    );
 
     osc.connect(gain);
     gain.connect(this.ctx.destination);
