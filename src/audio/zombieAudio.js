@@ -1,4 +1,4 @@
-export class ZombieAudio {
+class ZombieAudio {
   constructor() {
     this.audioCtx = null;
   }
