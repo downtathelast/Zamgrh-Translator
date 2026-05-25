@@ -3,30 +3,63 @@
 <head>
   <meta charset="UTF-8" />
   <title>Zamgrh Translator</title>
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+
   <div class="crt">
 
     <h1>🧟 ZAMGRH TERMINAL</h1>
 
+    <div class="subline">
+      NECRO-LINGUISTIC SIGNAL INTERFACE
+    </div>
+
     <select id="mode">
-      <option value="zombie">Zombie Mode</option>
-      <option value="survivor">Survivor Mode</option>
+      <option value="zombie">
+        Zombie Mode
+      </option>
+
+      <option value="survivor">
+        Survivor Mode
+      </option>
     </select>
 
-    <textarea id="input" placeholder="Enter signal..."></textarea>
+    <textarea
+      id="input"
+      placeholder="Enter signal..."
+    ></textarea>
 
-    <button onclick="runTranslate()">TRANSLATE</button>
-    <button onclick="playGroan()">☠ GROAN</button>
+    <div class="buttons">
+      <button onclick="runTranslate()">
+        TRANSLATE
+      </button>
 
-    <div id="output"></div>
+      <button onclick="playGroan()">
+        ☠ GROAN
+      </button>
+    </div>
+
+    <div id="output">
+      ...
+    </div>
+
+    <div class="status">
+      █ SIGNAL ACTIVE
+    </div>
 
   </div>
 
   <script src="translator.js"></script>
   <script src="audio.js"></script>
   <script src="script.js"></script>
+
 </body>
 </html>
