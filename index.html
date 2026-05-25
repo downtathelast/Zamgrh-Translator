@@ -38,6 +38,7 @@
     ></textarea>
 
     <div class="buttons">
+
       <button onclick="runTranslate()">
         TRANSLATE
       </button>
@@ -45,6 +46,7 @@
       <button onclick="playGroan()">
         ☠ GROAN
       </button>
+
     </div>
 
     <div id="output">
@@ -57,8 +59,26 @@
 
   </div>
 
+  <!-- translator -->
   <script src="translator.js"></script>
-  <script src="audio.js"></script>
+
+  <!-- meSpeak engine -->
+  <script src="src/mespeak.js"></script>
+
+  <script>
+    meSpeak.loadConfig(
+      "src/mespeak__standard_config.json"
+    );
+
+    meSpeak.loadVoice(
+      "src/en-rp.json"
+    );
+  </script>
+
+  <!-- zombie audio -->
+  <script src="src/zombieAudio.js"></script>
+
+  <!-- app logic -->
   <script src="script.js"></script>
 
 </body>
