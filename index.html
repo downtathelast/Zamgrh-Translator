@@ -65,15 +65,18 @@
   <!-- meSpeak engine -->
   <script src="src/audio/mespeak.js"></script>
 
-  <script>
-    meSpeak.loadConfig(
-      "src/audio/mespeak__standard_config.json"
-    );
+<script>
+  meSpeak.loadConfig(
+    "src/audio/mespeak__standard_config.json"
+  );
 
-    meSpeak.loadVoice(
-      "src/audio/en-rp.json"
-    );
-  </script>
+  meSpeak.loadVoice(
+    "src/audio/en-rp.json",
+    function () {
+      console.log("Zombie voice loaded.");
+    }
+  );
+</script>
 
   <!-- zombie audio -->
   <script src="src/audio/zombieAudio.js"></script>
