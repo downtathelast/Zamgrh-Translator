@@ -1,40 +1,47 @@
 class ZombieAudio {
+
   constructor() {
-    this.enabled = true;
+
+    this.ready = true;
+
   }
 
   speak(text) {
-    if (!window.meSpeak) return;
 
-    const zombieText = text
-      .toLowerCase()
-      .replace(/\./g, "...")
-      .replace(/s/g, "ss")
-      .replace(/r/g, "rr")
-      .replace(/z/g, "zz")
-      .replace(/ing/g, "unng");
+    if (!window.meSpeak) {
+      console.error("meSpeak not loaded");
+      return;
+    }
 
-    meSpeak.speak(zombieText, {
+    meSpeak.speak(text, {
+
       amplitude: 300,
       pitch: 1,
       speed: 10,
       wordgap: 2,
       variant: "whisperf"
+
     });
+
   }
 
   groan() {
+
     const sounds = [
-      "grrrhh...",
-      "unngghhh...",
-      "braaainzz...",
+
+      "grrrhhh...",
+      "unnggghhh...",
+      "braaainzzz...",
       "raaaahhh...",
-      "ggrrraahh..."
+      "ggrrraaaahh..."
+
     ];
 
     const random =
       sounds[Math.floor(Math.random() * sounds.length)];
 
     this.speak(random);
+
   }
+
 }
